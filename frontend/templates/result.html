@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Prediction Result</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- 🔵 Navigation Bar -->
+
+<div class="navbar">
+
+<a href="/">🏠 Home</a>
+
+<a href="/upload">📤 Upload</a>
+
+<a href="/webcam_page">🎥 Webcam</a>
+
+<a href="/analytics">📊 Analytics</a>
+
+<a href="/report">📄 Report</a>
+
+<a href="/daily">📅 Daily</a>
+
+<a href="/weekly">📊 Weekly</a>
+
+<a href="/improvement">📈 Improvement</a>
+
+</div>
+
+<!-- Result Section -->
+
+<div class="container">
+
+<div class="glass-card">
+
+<h1>📊 Prediction Result</h1>
+
+<!-- Pose Name -->
+
+<h2 class="pose-name">
+
+{{ prediction }}
+
+</h2>
+
+<!-- Confidence -->
+
+<p class="confidence-text">
+
+Confidence:
+<b>{{ (confidence*100)|round(2) }} %</b>
+
+</p>
+
+<!-- Accuracy -->
+
+<p class="accuracy-text">
+
+Accuracy Status:
+<b>{{ accuracy_status }}</b>
+
+</p>
+
+<!-- Progress Bar -->
+
+<div class="progress-bar">
+
+<div class="progress-fill"
+style="width: {{ confidence * 100 }}%">
+
+</div>
+
+</div>
+
+<br>
+
+<!-- Image Display -->
+
+<img class="result-image"
+
+src="{{ url_for('static',
+filename='images/' + filename) }}">
+
+<br><br>
+
+<!-- Suggestions -->
+
+<div class="suggestion-box">
+
+<h3>🧠 Suggestions</h3>
+
+<ul>
+
+{% for tip in suggestions %}
+
+<li>{{ tip }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<br>
+
+<a href="/upload">
+
+<button class="feature-btn">
+
+📤 Try Another Image
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

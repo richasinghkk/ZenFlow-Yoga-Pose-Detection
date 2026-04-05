@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Webcam Detection</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- 🔵 Navigation Bar -->
+
+<div class="navbar">
+
+<a href="/">🏠 Home</a>
+
+<a href="/upload">📤 Upload</a>
+
+<a href="/webcam_page">🎥 Webcam</a>
+
+<a href="/analytics">📊 Analytics</a>
+
+<a href="/report">📄 Report</a>
+
+<a href="/daily">📅 Daily</a>
+
+<a href="/weekly">📊 Weekly</a>
+
+<a href="/improvement">📈 Improvement</a>
+
+</div>
+
+<!-- Webcam Section -->
+
+<div class="container">
+
+<div class="glass-card">
+
+<h1>🎥 Live Webcam Detection</h1>
+
+<p class="welcome-text">
+
+Start live pose detection using your webcam.
+The system will detect your pose in real-time
+and provide suggestions instantly.
+
+</p>
+
+<br>
+
+<!-- Start Webcam Button -->
+
+<a href="/webcam">
+
+<button class="feature-btn">
+
+🎥 Start Webcam
+
+</button>
+
+</a>
+
+<br><br>
+
+<p class="note-text">
+
+Press <b>Q</b> to stop the webcam.
+
+</p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

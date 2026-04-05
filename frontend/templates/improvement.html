@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Improvement Tracker</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- 🔵 Navigation Bar -->
+
+<div class="navbar">
+
+<a href="/">🏠 Home</a>
+
+<a href="/upload">📤 Upload</a>
+
+<a href="/webcam_page">🎥 Webcam</a>
+
+<a href="/analytics">📊 Analytics</a>
+
+<a href="/report">📄 Report</a>
+
+<a href="/daily">📅 Daily</a>
+
+<a href="/weekly">📊 Weekly</a>
+
+<a href="/improvement">📈 Improvement</a>
+
+</div>
+
+<!-- Improvement Section -->
+
+<div class="container">
+
+<!-- Header -->
+
+<div class="glass-card">
+
+<h1>📈 Pose Improvement Tracker</h1>
+
+<p class="welcome-text">
+
+Compare your previous and latest performance
+to track improvement over time.
+
+</p>
+
+</div>
+
+<br>
+
+<!-- Stats Cards -->
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<h3>Latest Pose</h3>
+
+<p class="stat-number">
+
+{{ pose }}
+
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Previous Confidence</h3>
+
+<p class="stat-number">
+
+{{ previous }} %
+
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Latest Confidence</h3>
+
+<p class="stat-number">
+
+{{ latest }} %
+
+</p>
+
+</div>
+
+</div>
+
+<br>
+
+<!-- Improvement Highlight -->
+
+<div class="glass-card">
+
+<h2>Performance Change</h2>
+
+{% if improvement >= 0 %}
+
+<p class="improvement-positive">
+
++{{ improvement }} %
+
+Improvement Detected 🚀
+
+</p>
+
+{% else %}
+
+<p class="improvement-negative">
+
+{{ improvement }} %
+
+Performance Decreased ⚠️
+
+</p>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</body>
+
+</html>

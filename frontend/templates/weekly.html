@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Weekly Progress</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- 🔵 Navigation Bar -->
+
+<div class="navbar">
+
+<a href="/">🏠 Home</a>
+
+<a href="/upload">📤 Upload</a>
+
+<a href="/webcam_page">🎥 Webcam</a>
+
+<a href="/analytics">📊 Analytics</a>
+
+<a href="/report">📄 Report</a>
+
+<a href="/daily">📅 Daily</a>
+
+<a href="/weekly">📊 Weekly</a>
+
+<a href="/improvement">📈 Improvement</a>
+
+</div>
+
+<!-- Weekly Summary Section -->
+
+<div class="container">
+
+<!-- Header Card -->
+
+<div class="glass-card">
+
+<h1>📊 Weekly Progress</h1>
+
+<p class="welcome-text">
+
+Track your weekly yoga sessions
+and monitor overall performance trends.
+
+</p>
+
+</div>
+
+<br>
+
+<!-- Weekly Stats Grid -->
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<h3>Total Sessions This Week</h3>
+
+<p class="stat-number">
+
+{{ total }}
+
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Most Practiced Pose</h3>
+
+<p class="stat-number">
+
+{{ most_pose }}
+
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Average Confidence</h3>
+
+<p class="stat-number">
+
+{{ avg_conf }} %
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

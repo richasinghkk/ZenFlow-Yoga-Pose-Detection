@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Daily Practice Summary</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- 🔵 Navigation Bar -->
+
+<div class="navbar">
+
+<a href="/">🏠 Home</a>
+
+<a href="/upload">📤 Upload</a>
+
+<a href="/webcam_page">🎥 Webcam</a>
+
+<a href="/analytics">📊 Analytics</a>
+
+<a href="/report">📄 Report</a>
+
+<a href="/daily">📅 Daily</a>
+
+<a href="/weekly">📊 Weekly</a>
+
+<a href="/improvement">📈 Improvement</a>
+
+</div>
+
+<!-- Daily Summary Section -->
+
+<div class="container">
+
+<div class="glass-card">
+
+<h1>📅 Daily Practice Summary</h1>
+
+<p class="welcome-text">
+
+Overview of today's yoga activity
+and performance insights.
+
+</p>
+
+</div>
+
+<br>
+
+<!-- Stats Cards -->
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<h3>Total Poses Today</h3>
+
+<p class="stat-number">
+
+{{ total }}
+
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Most Practiced Pose</h3>
+
+<p class="stat-number">
+
+{{ most_pose }}
+
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Average Confidence</h3>
+
+<p class="stat-number">
+
+{{ avg_conf }} %
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

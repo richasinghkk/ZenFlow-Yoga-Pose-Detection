@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Upload Pose</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- 🔵 Navigation Bar -->
+
+<div class="navbar">
+
+<a href="/">🏠 Home</a>
+
+<a href="/upload">📤 Upload</a>
+
+<a href="/webcam_page">🎥 Webcam</a>
+
+<a href="/analytics">📊 Analytics</a>
+
+<a href="/report">📄 Report</a>
+
+<a href="/daily">📅 Daily</a>
+
+<a href="/weekly">📊 Weekly</a>
+
+<a href="/improvement">📈 Improvement</a>
+
+</div>
+
+<!-- Upload Section -->
+
+<div class="container">
+
+<div class="glass-card">
+
+<h1>📤 Upload Yoga Pose</h1>
+
+<p class="welcome-text">
+
+Upload an image of your yoga pose to detect posture,
+get suggestions, and evaluate accuracy.
+
+</p>
+
+<br>
+
+<form method="POST"
+action="/predict"
+enctype="multipart/form-data">
+
+<!-- File Upload -->
+
+<input type="file"
+name="file"
+class="file-input"
+required>
+
+<br><br>
+
+<button type="submit"
+class="feature-btn">
+
+🔍 Predict Pose
+
+</button>
+
+</form>
+
+<br>
+
+<a href="/">
+
+<button class="feature-btn">
+
+⬅ Back to Home
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

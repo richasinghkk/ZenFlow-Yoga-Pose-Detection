@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>ZenFlow Yoga Pose Detection</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🧘 ZenFlow Yoga Pose Detection</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+<input type="file" name="file" required>
+
+<br><br>
+
+<button type="submit">
+Predict Pose
+</button>
+
+</form>
+
+<br>
+
+<a href="/webcam">
+
+<button type="button" class="webcam-btn">
+🎥 Start Webcam
+</button>
+
+</a>
+
+<br><br>
+
+<a href="/analytics">
+
+<button type="button">
+📊 View Analytics
+</button>
+
+</a>
+
+<br><br>
+
+<a href="/report">
+
+<button type="button">
+📄 Generate Report
+</button>
+
+</a>
+
+<br><br>
+
+<a href="/daily">
+
+<button type="button">
+📅 Daily Summary
+</button>
+
+</a>
+
+<br><br>
+
+<a href="/weekly">
+
+<button type="button">
+📊 Weekly Summary
+</button>
+
+</a>
+
+<br><br>
+
+<a href="/improvement">
+
+<button type="button">
+📈 Improvement Tracker
+</button>
+
+</a>
+
+
+{% if prediction %}
+
+<div class="result">
+
+<h2>Predicted Pose:</h2>
+
+<p class="pose-name">
+{{ prediction }}
+</p>
+
+<h3>Confidence:</h3>
+
+<p>
+{{ (confidence * 100) | round(2) }} %
+</p>
+
+<!-- Accuracy Status -->
+
+<h3>Accuracy Status:</h3>
+
+<p class="accuracy">
+{{ accuracy_status }}
+</p>
+
+<!-- Progress Bar -->
+
+<div class="progress-bar">
+
+<div class="progress-fill"
+style="width: {{ confidence * 100 }}%">
+
+</div>
+
+</div>
+
+<img src="{{ url_for('static',
+filename='images/' + filename) }}">
+
+</div>
+
+{% endif %}
+
+
+{% if suggestions %}
+
+<div class="suggestions">
+
+<h3>🧠 Suggestions:</h3>
+
+<ul>
+
+{% for tip in suggestions %}
+
+<li>{{ tip }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>
