@@ -7,34 +7,57 @@ import subprocess
 from flask import Flask, render_template, request
 
 from database import save_prediction
-
 from suggestions import get_suggestions
-
 from accuracy import get_accuracy_status
+
+
+# 📁 Get project root directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Flask setup
 app = Flask(
     __name__,
-    template_folder="../frontend/templates",
-    static_folder="../frontend/static"
+    template_folder=os.path.join(BASE_DIR, "frontend/templates"),
+    static_folder=os.path.join(BASE_DIR, "frontend/static")
 )
 
+
 # Ensure images folder exists
-image_folder = os.path.join(app.static_folder, "images")
+image_folder = os.path.join(
+    app.static_folder,
+    "images"
+)
+
 os.makedirs(image_folder, exist_ok=True)
 
+
+# 📌 Correct Model Path
+model_path = os.path.join(
+    BASE_DIR,
+    "model",
+    "yoga_model.h5"
+)
+
 # Load trained model
-model = tf.keras.models.load_model("model/yoga_model.h5")
+model = tf.keras.models.load_model(model_path)
+
+
+# 📌 Correct Dataset Path
+train_dir = os.path.join(
+    BASE_DIR,
+    "dataset",
+    "train"
+)
 
 # Load class names
-train_dir = "dataset/train"
 class_names = sorted(os.listdir(train_dir))
+
 
 IMG_SIZE = 224
 
 
-# Prediction Function
+# 🔍 Prediction Function
 def predict_pose(image_path):
 
     img = cv2.imread(image_path)
@@ -42,30 +65,45 @@ def predict_pose(image_path):
     if img is None:
         return "Image Error", 0
 
-    img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+    img = cv2.resize(
+        img,
+        (IMG_SIZE, IMG_SIZE)
+    )
+
     img = img / 255.0
 
-    img = np.expand_dims(img, axis=0)
+    img = np.expand_dims(
+        img,
+        axis=0
+    )
 
     prediction = model.predict(img)
 
-    predicted_class = class_names[np.argmax(prediction)]
+    predicted_class = class_names[
+        np.argmax(prediction)
+    ]
 
-    confidence = float(np.max(prediction))
+    confidence = float(
+        np.max(prediction)
+    )
 
     return predicted_class, confidence
 
 
-# 🏠 Slide 1 — Welcome Page
+# 🏠 Welcome Page
 @app.route("/")
 def welcome():
-    return render_template("welcome.html")
+    return render_template(
+        "welcome.html"
+    )
 
 
-# 📤 Slide 2 — Upload Page
+# 📤 Upload Page
 @app.route("/upload")
 def upload_page():
-    return render_template("upload.html")
+    return render_template(
+        "upload.html"
+    )
 
 
 # 📊 Prediction Route
@@ -93,14 +131,14 @@ def predict():
 
         prediction, confidence = predict_pose(filepath)
 
-        # Suggestions
         suggestions = get_suggestions(prediction)
 
-        # Accuracy
         accuracy_status = get_accuracy_status(confidence)
 
-        # Save to database
-        save_prediction(prediction, confidence)
+        save_prediction(
+            prediction,
+            confidence
+        )
 
     return render_template(
         "result.html",
@@ -112,10 +150,12 @@ def predict():
     )
 
 
-# 🎥 Slide 3 — Webcam Page
+# 🎥 Webcam Page
 @app.route("/webcam_page")
 def webcam_page():
-    return render_template("webcam_page.html")
+    return render_template(
+        "webcam_page.html"
+    )
 
 
 # 🎥 Start Webcam
@@ -124,15 +164,14 @@ def start_webcam():
 
     try:
 
-        python_path = os.path.join(
-            os.getcwd(),
-            "zenflow_env",
-            "Scripts",
-            "python.exe"
+        webcam_script = os.path.join(
+            BASE_DIR,
+            "backend",
+            "webcam.py"
         )
 
         subprocess.Popen(
-            [python_path, "backend/webcam.py"]
+            ["python", webcam_script]
         )
 
         return "<h2>🎥 Webcam Started Successfully!</h2>"
@@ -142,45 +181,45 @@ def start_webcam():
         return f"Error starting webcam: {e}"
 
 
-# 📊 Slide 4 — Analytics
+# 📊 Analytics
 @app.route("/analytics")
 def analytics():
 
     try:
 
-        python_path = os.path.join(
-            os.getcwd(),
-            "zenflow_env",
-            "Scripts",
-            "python.exe"
+        chart_script = os.path.join(
+            BASE_DIR,
+            "research",
+            "generate_chart.py"
         )
 
         subprocess.run(
-            [python_path, "research/generate_chart.py"]
+            ["python", chart_script]
         )
 
-        return render_template("analytics.html")
+        return render_template(
+            "analytics.html"
+        )
 
     except Exception as e:
 
         return f"Error loading analytics: {e}"
 
 
-# 📄 Slide 5 — Report
+# 📄 Report
 @app.route("/report")
 def generate_report():
 
     try:
 
-        python_path = os.path.join(
-            os.getcwd(),
-            "zenflow_env",
-            "Scripts",
-            "python.exe"
+        report_script = os.path.join(
+            BASE_DIR,
+            "research",
+            "generate_report.py"
         )
 
         subprocess.run(
-            [python_path, "research/generate_report.py"]
+            ["python", report_script]
         )
 
         return "<h2>📄 Yoga Report Generated Successfully!</h2>"
@@ -190,7 +229,7 @@ def generate_report():
         return f"Error generating report: {e}"
 
 
-# 📅 Slide 6 — Daily Summary
+# 📅 Daily Summary
 @app.route("/daily")
 def daily_summary():
 
@@ -198,7 +237,12 @@ def daily_summary():
     from datetime import datetime
     from collections import Counter
 
-    conn = sqlite3.connect("pose_data.db")
+    db_path = os.path.join(
+        BASE_DIR,
+        "pose_data.db"
+    )
+
+    conn = sqlite3.connect(db_path)
 
     cursor = conn.cursor()
 
@@ -249,7 +293,7 @@ def daily_summary():
     )
 
 
-# 📊 Slide 7 — Weekly Summary
+# 📊 Weekly Summary
 @app.route("/weekly")
 def weekly_summary():
 
@@ -257,7 +301,12 @@ def weekly_summary():
     from datetime import datetime, timedelta
     from collections import Counter
 
-    conn = sqlite3.connect("pose_data.db")
+    db_path = os.path.join(
+        BASE_DIR,
+        "pose_data.db"
+    )
+
+    conn = sqlite3.connect(db_path)
 
     cursor = conn.cursor()
 
@@ -313,13 +362,18 @@ def weekly_summary():
     )
 
 
-# 📈 Slide 8 — Improvement Tracker
+# 📈 Improvement Tracker
 @app.route("/improvement")
 def improvement_tracker():
 
     import sqlite3
 
-    conn = sqlite3.connect("pose_data.db")
+    db_path = os.path.join(
+        BASE_DIR,
+        "pose_data.db"
+    )
+
+    conn = sqlite3.connect(db_path)
 
     cursor = conn.cursor()
 
@@ -360,6 +414,6 @@ def improvement_tracker():
     )
 
 
-# Run App
+# 🚀 Run App
 if __name__ == "__main__":
     app.run(debug=True)
