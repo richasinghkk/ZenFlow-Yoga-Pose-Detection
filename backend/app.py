@@ -6,12 +6,12 @@ import subprocess
 
 from flask import Flask, render_template, request
 
-# from database import save_prediction
-from backend.database import save_prediction
-# from suggestions import get_suggestions
-from .suggestions import get_suggestions
-# from accuracy import get_accuracy_status
-from .accuracy import get_accuracy_status
+from database import save_prediction
+
+from suggestions import get_suggestions
+
+from accuracy import get_accuracy_status
+
 
 # Flask setup
 app = Flask(
@@ -361,11 +361,5 @@ def improvement_tracker():
 
 
 # Run App
-# if __name__ == "__main__":
-#     app.run(debug=True)
-
-
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
