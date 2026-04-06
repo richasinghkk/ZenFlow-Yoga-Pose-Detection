@@ -10,8 +10,8 @@ from flask import Flask, render_template, request
 from backend.database import save_prediction
 # from suggestions import get_suggestions
 from .suggestions import get_suggestions
-from accuracy import get_accuracy_status
-
+# from accuracy import get_accuracy_status
+from .accuracy import get_accuracy_status
 
 # Flask setup
 app = Flask(
