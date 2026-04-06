@@ -6,7 +6,8 @@ import subprocess
 
 from flask import Flask, render_template, request
 
-from database import save_prediction
+# from database import save_prediction
+from backend.database import save_prediction
 from suggestions import get_suggestions
 from accuracy import get_accuracy_status
 
